@@ -48,6 +48,6 @@ app.use(routes);
 
 //change force to false when going live to retain data
 //force true will drop and then create the tables
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
 });
