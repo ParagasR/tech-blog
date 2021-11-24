@@ -13,7 +13,7 @@ User.init(
             autoIncrement: true,
         },
 
-        userName: {
+        user: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -38,7 +38,7 @@ User.init(
         },
         sequelize,
         timestamps: false,
-        freezeTableName: false,
+        freezeTableName: true,
         underscored: true,
         modelName: 'user',
     }
