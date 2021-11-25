@@ -5,21 +5,16 @@ router.get('/', async (req, res) => {
     //change to get data from database blog items then pass through blog template handlebar
     try {
         const dbPostData = await Post.findAll({
-            include: [
-                {
-                    model: User,
-                },
-            ],
+            include: {
+                model: User,
+                attributes: ['user']
+            }
         });
 
-        // const posts = dbPostData.map((post) => {
-        //     post.get({ plain: true });
-        // });
-
-        dbPostData.forEach(element => {
-            element.get({ plain: true })
+        const posts = dbPostData.map((post) => {
+            console.log(post.get({ plain: true }))
         });
-        console.log(dbPostData)
+
         res.render('post', { posts })
     } catch (err) {
         console.log(err);

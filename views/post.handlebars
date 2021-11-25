@@ -1,15 +1,6 @@
 <section>
     <h2>Posts</h2>
-    {{#each posts as |allPost|}}
-    <section>
-        <header>
-            {{user}}
-            {{created_at}}
-        </header>
-
-        <div>
-            {{post}}
-        </div>
-    </section>
+    {{#each posts as |post|}}
+    {{> post-details}}
     {{/each}}
 </section>
