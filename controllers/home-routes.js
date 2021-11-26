@@ -11,9 +11,11 @@ router.get('/', async (req, res) => {
             }
         });
 
+        //still the problem child
         const posts = dbPostData.map((post) => {
-            console.log(post.get({ plain: true }))
+            post.get({ plain: true })
         });
+        console.log(posts)
 
         res.render('post', { posts })
     } catch (err) {
