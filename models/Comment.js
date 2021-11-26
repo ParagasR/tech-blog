@@ -2,7 +2,7 @@ const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 class Comment extends Model { };
-
+//just followed the same model as Post.js
 Comment.init(
     {
         id: {
