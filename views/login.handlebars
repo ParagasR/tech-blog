@@ -3,7 +3,7 @@
     {{!-- login card --}}
     <div>
         <h2>Login</h2>
-        <form>
+        <form id='login'>
             {{!-- email form --}}
             <div>
                 <label>Email:</label>
@@ -24,25 +24,27 @@
     {{!-- create user card --}}
     <div>
         <h2>Signup</h2>
-        {{!-- Username form --}}
-        <div>
-            <label>Username:</label>
-            <input type='text' id='signup-username' />
-        </div>
-        {{!-- email form --}}
-        <div>
-            <label>Email:</label>
-            <input type='email' id='signup-email' />
-        </div>
-        {{!-- password form --}}
-        <div>
-            <label>Password:</label>
-            <input type='password' id='signup-password' />
-        </div>
-        {{!-- submit button --}}
-        <div>
-            <button type:'submit'>Submit</button>
-        </div>
+        <form id='signup'>
+            {{!-- Username form --}}
+            <div>
+                <label>Username:</label>
+                <input type='text' id='signup-username' />
+            </div>
+            {{!-- email form --}}
+            <div>
+                <label>Email:</label>
+                <input type='email' id='signup-email' />
+            </div>
+            {{!-- password form --}}
+            <div>
+                <label>Password:</label>
+                <input type='password' id='signup-password' />
+            </div>
+            {{!-- submit button --}}
+            <div>
+                <button type:'submit'>Submit</button>
+            </div>
+        </form>
     </div>
 </div>
 

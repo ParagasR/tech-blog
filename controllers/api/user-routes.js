@@ -45,4 +45,22 @@ router.post('/login', async (req, res) => {
     }
 })
 
+//create user
+router.post('/', async (req, res) => {
+    try {
+        const dbUserData = await User.create({
+            user: req.body.user,
+            email: req.body.email,
+            password: req.body.password,
+        });
+
+        req.session.save(() => {
+            req.session.loggedIn = true;
+            res.status(200).json(dbUserData);
+        });
+    } catch (err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
+})
 module.exports = router;
