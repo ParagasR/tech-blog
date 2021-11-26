@@ -22,14 +22,14 @@ router.post('/login', async (req, res) => {
         });
 
         if (!dbUserData) {
-            res.status(400).json({ message: 'Incorrent email or password. Please try again' });
+            res.status(400).json({ message: 'No Email in database' });
             return;
         }
 
         const checkPassword = await dbUserData.checkPassword(req.body.password);
 
         if (!checkPassword) {
-            res.status(400).json({ message: 'Incorrent email or password. Please try again' });
+            res.status(400).json({ message: 'Incorrent pairing of email and password. Please try again' });
             return;
         }
 
