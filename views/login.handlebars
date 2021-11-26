@@ -1,0 +1,49 @@
+{{!-- main container --}}
+<div>
+    {{!-- login card --}}
+    <div>
+        <h2>Login</h2>
+        <form>
+            {{!-- email form --}}
+            <div>
+                <label>Email:</label>
+                <input type='email' id='login-email' />
+            </div>
+            {{!-- password form --}}
+            <div>
+                <label>Password:</label>
+                <input type='password' id='login-password' />
+            </div>
+            {{!-- login button --}}
+            <div>
+                <button type='submit'>Login</button>
+            </div>
+        </form>
+    </div>
+
+    {{!-- create user card --}}
+    <div>
+        <h2>Signup</h2>
+        {{!-- Username form --}}
+        <div>
+            <label>Username:</label>
+            <input type='text' id='signup-username' />
+        </div>
+        {{!-- email form --}}
+        <div>
+            <label>Email:</label>
+            <input type='email' id='signup-email' />
+        </div>
+        {{!-- password form --}}
+        <div>
+            <label>Password:</label>
+            <input type='password' id='signup-password' />
+        </div>
+        {{!-- submit button --}}
+        <div>
+            <button type:'submit'>Submit</button>
+        </div>
+    </div>
+</div>
+
+<script src='../public/js/login.js'></script>
