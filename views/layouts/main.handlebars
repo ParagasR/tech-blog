@@ -14,7 +14,7 @@
         <nav>
             <a href='/'>Home</a>
             {{#if loggedIn}}
-            <button id='logout'>Logout</button>
+            <a class='button' id='logout'>Logout</a>
             {{else}}
             <a href='/login'>Login</a>
             {{/if}}
@@ -26,6 +26,8 @@
     </main>
     {{#if loggedIn}}
     <script src='/js/logout.js'></script>
+    {{else}}
+    <script src="/js/login.js"></script>
     {{/if}}
 </body>
 
