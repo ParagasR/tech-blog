@@ -2,16 +2,17 @@
 const loginButton = async (event) => {
     event.preventDefault();
     //grab the values in the two fields
-    const email = $('#login-email').value.trim();
-    const password = $('#login-password').value.trim();
+    const email = document.querySelector('#login-email').value.trim();
+    const password = document.querySelector('#login-password').value.trim();
     //check to see if the exist
+    console.log(email + ' ' + password)
     if (email && password) {
         const response = await fetch('/api/users/login', {
-            methond: 'POST',
+            method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: { 'Content-Type': 'application/json' },
         });
-
+        console.log(email + ' ' + password)
         if (response.ok) {
             document.location.replace('/');
         } else {
@@ -25,9 +26,9 @@ const loginButton = async (event) => {
 const signupButton = async (event) => {
     event.preventDefault();
     //grab all the data in the respective fields
-    const user = $('#signup-username').value.trim();
-    const email = $('#signup-email').value.trim();
-    const password = $('#signup-password').value.trim();
+    const user = document.querySelector('#signup-username').value.trim();
+    const email = document.querySelector('#signup-email').value.trim();
+    const password = document.querySelector('#signup-password').value.trim();
     //check to see if the data exists
     if (user && email && password) {
         //send request to api to submit data to create user
@@ -48,5 +49,11 @@ const signupButton = async (event) => {
 }
 
 //attach eventhandlers to buttons
-$('#login').on('submit', loginButton);
-$('#signup').on('submit', signupButton);
+
+document
+    .querySelector('.login')
+    .addEventListener('submit', loginButton);
+
+document
+    .querySelector('.signup')
+    .addEventListener('submit', signupButton);

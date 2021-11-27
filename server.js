@@ -29,8 +29,8 @@ const sess = {
     //set what kind of database is being used (MySQL)
     store: new SequelizeStore({
         db: sequelize,
-    })
-}
+    }),
+};
 app.use(session(sess));
 
 const hbs = exphbs.create({});
