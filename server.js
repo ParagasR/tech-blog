@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3001;
 
 //set up sessions w/ cookies
 const sess = {
-    secret: 'change this later to an environment variable',
+    secret: 'Super secret secret',
     cookie: {
         //spec for cookie:
         maxAge: 86400, //set it to exepire after 24 hours
@@ -31,6 +31,7 @@ const sess = {
         db: sequelize,
     }),
 };
+
 app.use(session(sess));
 
 const hbs = exphbs.create({});

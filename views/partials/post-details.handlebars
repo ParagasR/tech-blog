@@ -1,10 +1,14 @@
-<section>
-    <header>
-        {{user.user}}
-        {{createdAt}}
-    </header>
+<div class='card my-3' id='card-post'>
+    <div class='hero is-small flex is-flex-direction-row pt-3'>
+        <div class='content pl-3'>
+            <h6>{{title}}</h6>
+        </div>
+        <div class='is-justify-content-flex-end content'>
+            <p>posted by {{user.user}} at {{createdAt}}</p>
+        </div>
+    </div>
 
     <div>
         {{post}}
     </div>
-</section>
+</div>
