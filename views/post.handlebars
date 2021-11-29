@@ -1,6 +1,8 @@
 <section>
     <h2 class='title is-3 mx-2'>Posts</h2>
     {{#each posts as |post|}}
-    {{> post-details}}
+    <a href='/post/{{id}}'>
+        {{> post-details}}
+    </a>
     {{/each}}
 </section>
