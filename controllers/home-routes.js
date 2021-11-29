@@ -15,8 +15,12 @@ router.get('/', async (req, res) => {
         //{} after the => was the issue
         const posts = dbPostData.map((post) => post.get({ plain: true }));
         console.log(posts)
+        if (req.session.loggedIn) {
+            res.render('post', { posts, loggedIn: req.session.loggedIn, loggedUser: req.session.loggedUser })
+        } else {
+            res.render('post', { posts })
 
-        res.render('post', { posts, loggedIn: req.session.loggedIn })
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -48,11 +52,30 @@ router.get('/post/:id', async (req, res) => {
                 attributes: ['user']
             }]
         });
+        console.log('went past the error and didnt skip to catch')
         const post = postDetails.get({ plain: true })
         res.render('singlePost', post)
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
+    }
+})
+
+router.get('/user/:id', async (req, res) => {
+    try {
+        const dbUserData = await User.findByPk(req.params.id, {
+            include: {
+                model: Post,
+                attributes: ['title', 'post', 'createAt']
+            },
+        });
+        res.json(dbUserData.get({ plain: true }))
+    } catch (err) {
+        const userWithoutComments = await User.findByPk(req.params.id);
+        if (!userWithoutComments) {
+            res.status(404).json('user doesnt exist')
+        }
+        res.json(userWithoutComments.get({ plain: true }))
     }
 })
 

@@ -3,6 +3,7 @@
     <div class='card'>
         {{post}}
     </div>
+    {{#if comments}}
     {{#each comments as |element|}}
     <div class='card'>
         <div>
@@ -14,4 +15,5 @@
         </div>
     </div>
     {{/each}}
+    {{/if}}
 </section>
