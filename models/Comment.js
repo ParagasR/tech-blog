@@ -12,13 +12,20 @@ Comment.init(
             primaryKey: true,
         },
         comment: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false,
+        },
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'user',
+                key: 'id',
+            }
         },
         post_id: {
             type: DataTypes.INTEGER,
             references: {
-                modelName: 'post',
+                model: 'post',
                 key: 'id',
             }
         }
