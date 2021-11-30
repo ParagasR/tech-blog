@@ -52,26 +52,29 @@ router.get('/post/:id', async (req, res) => {
                 attributes: ['user']
             }]
         });
-        console.log('went past the error and didnt skip to catch')
         const post = postDetails.get({ plain: true })
-        res.render('singlePost', post)
+        req.session.currentPost = req.params.id;
+        res.render('singlePost', { post, loggedIn: req.session.loggedIn, loggedUser: req.session.loggedUser })
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     }
 })
 
-router.get('/user/:id', async (req, res) => {
+router.get('/user', async (req, res) => {
     try {
-        const dbUserData = await User.findByPk(req.params.id, {
+        const dbUserData = await User.findByPk(req.session.loggedUser, {
             include: {
                 model: Post,
                 attributes: ['title', 'post', 'createAt']
             },
+            attributes: { excludes: ['password'] }
         });
         res.json(dbUserData.get({ plain: true }))
     } catch (err) {
-        const userWithoutComments = await User.findByPk(req.params.id);
+        const userWithoutComments = await User.findByPk(req.session.loggedUser, {
+            attributes: { exclude: ['password'] }
+        });
         if (!userWithoutComments) {
             res.status(404).json('user doesnt exist')
         }

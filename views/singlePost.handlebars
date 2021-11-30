@@ -1,19 +1,45 @@
 <section>
-    <h2 class='title is-3 mx-2'>{{title}}</h2>
+    <h2 class='title is-3 mx-2'>{{post.title}}</h2>
     <div class='card'>
-        {{post}}
+        {{post.post}}
     </div>
-    {{#if comments}}
-    {{#each comments as |element|}}
+    {{#if post.comments}}
+    {{#each post.comments as |element|}}
     <div class='card'>
         <div>
-            {{user.user}}
-            {{createdAt}}
+            {{element.user.user}}
+            {{element.createdAt}}
         </div>
         <div>
-            {{comment}}
+            {{element.comment}}
         </div>
     </div>
     {{/each}}
     {{/if}}
+    <button class='button' id='new-comment'>New Comment</button>
 </section>
+
+{{!-- modal to add a comment --}}
+<div class='modal'>
+    <div class='modal-background'></div>
+    <div class='modal-content'>
+        <div class='card'>
+            <form id='add-comment'>
+                <div class='title is-1'>Add Comment</div>
+                <div class='field'>
+                    {{!-- comment field form --}}
+                    <div>
+                        <input class='textarea' placeholder='Enter comment here...' id='comment-field' />
+                    </div>
+                    {{!-- submit button --}}
+                    <div>
+                        <button class='button' type='submit'>Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+
+<script src='/js/modal.js'></script>
