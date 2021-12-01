@@ -61,24 +61,28 @@ router.get('/post/:id', async (req, res) => {
     }
 })
 
-router.get('/user', async (req, res) => {
+router.get('/dashboard', async (req, res) => {
     try {
         const dbUserData = await User.findByPk(req.session.loggedUser, {
             include: {
                 model: Post,
-                attributes: ['title', 'post', 'createAt']
             },
             attributes: { excludes: ['password'] }
         });
-        res.json(dbUserData.get({ plain: true }))
+        user = dbUserData.get({ plain: true })
+        console.log(user)
+        res.render('dashboard', { user, loggedIn: req.session.loggedIn, loggedUser: req.session.loggedUser })
     } catch (err) {
+        console.log(err)
         const userWithoutComments = await User.findByPk(req.session.loggedUser, {
             attributes: { exclude: ['password'] }
         });
         if (!userWithoutComments) {
             res.status(404).json('user doesnt exist')
         }
-        res.json(userWithoutComments.get({ plain: true }))
+        user = userWithoutComments.get({ plain: true })
+        console.log(user)
+        res.render('dashboard', { user, loggedIn: req.session.loggedIn, loggedUser: req.session.loggedUser })
     }
 })
 

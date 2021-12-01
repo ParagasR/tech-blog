@@ -1,0 +1,21 @@
+<section>
+    <div>
+        {{user.user}}
+    </div>
+    {{#if user.posts}}
+    <ul>
+        <h1>posts</h1>
+        {{#each user.posts as |post|}}
+        <li>
+            <div>
+                <a href='/post/{{id}}'>
+                    {{> post-details}}
+                </a>
+                <button>delete</button>
+                <button>edit</button>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</section>
