@@ -55,4 +55,24 @@ router.delete('/delete/:id', async (req, res) => {
   }
 })
 
+router.put('/edit/:id', async (req, res) => {
+  try {
+    const editPost = await Post.update(
+      {
+        title: req.body.title,
+        post: req.body.post,
+      },
+      {
+        where: {
+          id: req.params.id,
+          user_id: req.session.loggedUser,
+        },
+      });
+
+    res.status(204).json(editPost)
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+})
 module.exports = router;

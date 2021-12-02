@@ -42,10 +42,35 @@ const editShowModal = async (event) => {
   }
 }
 
+const editHandler = async (event) => {
+  event.preventDefault();
+
+  const id = event.target.getAttribute('data-id')
+  const post = document.querySelector('#edit-post-field').value;
+  const title = document.querySelector('#edit-title-field').value;
+  console.log(id)
+  if (post && title) {
+    const response = await fetch(`api/post/edit/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({ post, title }),
+      headers: { 'Content-type': 'application/json' }
+    });
+
+    console.log(response)
+    if (response.ok) {
+      document.location.reload()
+    } else {
+      alert('Unable to edit post')
+    }
+  }
+}
+
+document.querySelector('#edit-button').addEventListener('click', editShowModal);
+
+postDelete.addEventListener('click', deleteHandler);
+formEdit.addEventListener('submit', editHandler);
+
 editModalBackground.addEventListener('click', (event) => {
   event.preventDefault;
   postEdit.classList.remove('is-active');
 });
-
-document.querySelector('#edit-button').addEventListener('click', editShowModal);
-postDelete.addEventListener('click', deleteHandler);
