@@ -1,46 +1,49 @@
 <section>
-    <h2 class='title is-3 mx-2'>{{post.title}}</h2>
-    <div class='card'>
-        {{post.post}}
-    </div>
-    {{#if post.comments}}
+  <h2 class="title is-3 mx-2">{{post.title}}</h2>
+  <div class="card">
+    {{post.post}}
+  </div>
+  {{#if post.comments}}
     {{#each post.comments as |element|}}
-    <div class='card'>
+      <div class="card">
         <div>
-            {{element.user.user}}
-            {{element.createdAt}}
+          {{element.user.user}}
+          {{element.createdAt}}
         </div>
         <div>
-            {{element.comment}}
+          {{element.comment}}
         </div>
-    </div>
+      </div>
     {{/each}}
-    {{/if}}
-    <button class='button' id='create-new'>New Comment</button>
+  {{/if}}
+  <button class="button" id="create-new">New Comment</button>
 </section>
 
-{{!-- modal to add a comment --}}
-<div class='modal'>
-    <div class='modal-background'></div>
-    <div class='modal-content'>
-        <div class='card'>
-            <form id='add-comment'>
-                <div class='title is-1'>Add Comment</div>
-                <div class='field'>
-                    {{!-- comment field form --}}
-                    <div>
-                        <input class='textarea' placeholder='Enter comment here...' id='comment-field' />
-                    </div>
-                    {{!-- submit button --}}
-                    <div>
-                        <button class='button' type='submit'>Submit</button>
-                    </div>
-                </div>
-            </form>
+{{! modal to add a comment }}
+<div class="modal" id="new">
+  <div class="modal-background" id="add-background"></div>
+  <div class="modal-content">
+    <div class="card">
+      <form id="add-comment">
+        <div class="title is-1">Add Comment</div>
+        <div class="field">
+          {{! comment field form }}
+          <div>
+            <input
+              class="textarea"
+              placeholder="Enter comment here..."
+              id="comment-field"
+            />
+          </div>
+          {{! submit button }}
+          <div>
+            <button class="button" type="submit">Submit</button>
+          </div>
         </div>
+      </form>
     </div>
+  </div>
 </div>
 
-
-<script type='text/javascript' src='/js/modal.js'></script>
-<script type='text/javascript' src='/js/newComment.js'></script>
+<script type="text/javascript" src="/js/modal.js"></script>
+<script type="text/javascript" src="/js/newComment.js"></script>

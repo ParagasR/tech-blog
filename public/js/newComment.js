@@ -1,6 +1,6 @@
 const newFormHandler = async (event) => {
     event.preventDefault();
-    const comment = document.querySelector('#comment-field').value;
+    let comment = document.querySelector('#comment-field').value;
     if (comment) {
         const response = await fetch('/api/post/comment', {
             method: 'POST',
@@ -9,6 +9,7 @@ const newFormHandler = async (event) => {
         });
 
         if (response.ok) {
+            document.querySelector('#comment-field').value = "";
             document.location.reload();
         } else {
             alert(response.statusText)

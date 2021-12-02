@@ -11,8 +11,8 @@
                 <a href='/post/{{id}}'>
                     {{> post-details}}
                 </a>
-                <button class='button' id='delete' data-id={{id}}>delete</button>
-                <button class='button' id='edit' data-id={{id}}>edit</button>
+                <button class='button' id='delete-button' data-id={{id}}>delete</button>
+                <button class='button' id='edit-button' data-id={{id}}>edit</button>
             </div>
         </li>
         {{/each}}
@@ -21,34 +21,43 @@
     <button class='button' id='create-new'>New Post</button>
 </section>
 
-{{!-- modal to add a post --}}
-<div class='modal'>
-    <div class='modal-background'></div>
-    <div class='modal-content'>
-        <div class='card'>
-            <form id='add-post'>
-                <div class='title is-1'>New Post</div>
-                <div class='field'>
-                    {{!-- title field form --}}
-                    <div>
-                        <input class='input' placeholder='Enter title here...' id='title-field' />
-                    </div>
-                    {{!-- comment field form --}}
-                    <div>
-                        <input class='textarea' placeholder='Enter comment here...' id='post-field' />
-                    </div>
-                    {{!-- submit button --}}
-                    <div>
-                        <button class='button' type='submit'>Submit</button>
-                    </div>
-                </div>
-            </form>
+{{! modal to edit a post }}
+<div class="modal" id="edit">
+  <div class="modal-background" id='edit-background'></div>
+  <div class="modal-content">
+    <div class="card">
+      <form id="edit-post">
+        <div class="title is-1">Edit Post</div>
+        <div class="field">
+          {{! title field form }}
+          <div>
+            <input
+              class="input"
+              id="edit-title-field"
+            />
+          </div>
+          {{! comment field form }}
+          <div>
+            <input
+              class="textarea"
+              id="edit-post-field"
+            />
+          </div>
+          {{! submit button }}
+          <div>
+            <button class="button" type="submit">Submit Edit</button>
+          </div>
         </div>
+      </form>
     </div>
+  </div>
 </div>
+
+{{> add-post}}
+
 
 {{#if user.posts}}
 <script type='text/javascript' src='/js/editAndDelete.js'></script>
 {{/if}}
-<script type='text/javascript' src='/js/newPost.js'></script>
+
 <script type='text/javascript' src='/js/modal.js'></script>

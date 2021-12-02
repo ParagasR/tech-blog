@@ -10,6 +10,8 @@ const newFormHandler = async (event) => {
             headers: { 'Content-type': 'application/json' }
         });
         if (response.ok) {
+            document.querySelector('#post-field').value = "";
+            document.querySelector('#title-field').value = "";
             document.location.reload();
         } else {
             alert(response.statusText)
