@@ -65,11 +65,10 @@ router.put('/edit/:id', async (req, res) => {
       {
         where: {
           id: req.params.id,
-          user_id: req.session.loggedUser,
         },
       });
 
-    res.status(204).json(editPost)
+    res.status(200).json(editPost)
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

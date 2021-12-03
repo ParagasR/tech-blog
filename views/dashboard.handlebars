@@ -11,8 +11,8 @@
                 <a href='/post/{{id}}'>
                     {{> post-details}}
                 </a>
-                <button class='button' id='delete-button' data-id={{id}}>delete</button>
-                <button class='button' id='edit-button' data-id={{id}}>edit</button>
+                <button class='button' id='delete-button' data-delete={{id}}>delete</button>
+                <button class='button' id='edit-button' data-edit={{id}}>edit</button>
             </div>
         </li>
         {{/each}}
@@ -21,6 +21,7 @@
     <button class='button' id='create-new'>New Post</button>
 </section>
 
+{{#if user.posts}}
 {{! modal to edit a post }}
 <div class="modal" id="edit">
   <div class="modal-background" id='edit-background'></div>
@@ -56,7 +57,7 @@
 {{> add-post}}
 
 
-{{#if user.posts}}
+
 <script type='text/javascript' src='/js/editAndDelete.js'></script>
 {{/if}}
 
