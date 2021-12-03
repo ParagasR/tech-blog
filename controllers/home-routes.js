@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post, Comment } = require('../models');
+const withAuth = require('../utils/auth')
 
 router.get('/', async (req, res) => {
   //change to get data from database blog items then pass through blog template handlebar
@@ -72,7 +73,7 @@ router.get('/edit/:id', async (req, res) => {
   }
 })
 
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const dbUserData = await User.findByPk(req.session.loggedUser, {
       include: {
