@@ -3,6 +3,8 @@ const postEdit = document.querySelector('#edit');
 const editForm = document.querySelector('#edit-post');
 const editModalBackground = document.querySelector('#edit-background');
 
+let currentPostId;
+
 const deleteHandler = async (event) => {
   if (event.target.getAttribute('data-delete')) {
     const id = event.target.getAttribute('data-delete');
@@ -23,6 +25,7 @@ const deleteHandler = async (event) => {
 const editShowModal = async (event) => {
   if (event.target.getAttribute('data-edit')) {
     const id = event.target.getAttribute('data-edit')
+    currentPostId = id;
 
     const post = await fetch(`/edit/${id}`)
 
@@ -41,12 +44,12 @@ const editShowModal = async (event) => {
 const editHandler = async (event) => {
   event.preventDefault();
 
-  const id = document.querySelector('#edit-button').getAttribute('data-edit');
+
   const post = document.querySelector('#edit-post-field').value;
   const title = document.querySelector('#edit-title-field').value;
   try {
-    if (post && title && id) {
-      const response = await fetch(`api/post/edit/${id}`, {
+    if (post && title && currentPostId) {
+      const response = await fetch(`api/post/edit/${currentPostId}`, {
         method: 'PUT',
         body: JSON.stringify({ post, title }),
         headers: { 'Content-type': 'application/json' }
