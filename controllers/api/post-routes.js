@@ -1,78 +1,99 @@
 const router = require('express').Router();
-const { Post, Comment } = require('../../models');
-const withAuth = require('../../utils/auth');
+const { User, Post, Comment } = require('../../models');
 
-router.post('/comment', withAuth, async (req, res) => {
+router.get('/:id', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect("/login");
+    return;
+  }
+
   try {
-    const newComment = await Comment.create({
-      comment: req.body.comment,
-      user_id: req.session.loggedUser,
-      post_id: req.session.currentPost,
+
+    const dbPostData = await Post.findByPk(req.params.id,{
+
     });
 
-    req.session.save(() => {
-      res.status(204).json(newComment);
-    })
+    const post = dbPostData.get({ plain: true });
+
+    req.session.post_id = post.id;
+    
+    res.json(post);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
+router.put('/edit/:id', async (req, res) => {
+  if (!req.session.loggedIn) {
+    res.redirect("/login");
+    return;
+  }
+  try {
+    const dbPostData = await Post.update({
+      post_title: req.body.post_title,
+      post_content: req.body.post_content
+    },
+      {
+        where: {
+      id: req.params.id
+      }}
+      );
+    
+    res.status(200).json(dbPostData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
   }
 });
 
-router.post('/', withAuth, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newPost = await Post.create({
-      title: req.body.title,
-      post: req.body.comment,
-      user_id: req.session.loggedUser,
+      ...req.body,
+      user_id: req.session.user_id,
     });
-    req.session.save(() => {
-      res.status(204).json(newPost)
-    })
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-})
 
-router.delete('/delete/:id', withAuth, async (req, res) => {
+    res.status(200).json(newPost);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.post('/comment', async (req, res) => {
+
+
   try {
-    const deletePost = await Post.destroy({
+
+    const newComment = await Comment.create({
+      comment_content: req.body.comment_content,
+      user_id: req.session.user_id,
+      post_id: req.session.post_id,
+    });
+
+    res.status(200).json(newComment);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const postData = await Post.destroy({
       where: {
         id: req.params.id,
-        user_id: req.session.loggedUser,
-      }
+        user_id: req.session.user_id,
+      },
     });
 
-    if (!deletePost) {
-      res.status(404).json({ message: 'No post found with this id for this user' })
-      return
+    if (!postData) {
+      res.status(404).json({ message: 'No post found with this id!' });
+      return;
     }
 
-    res.status(200).json(deletePost)
+    res.status(200).json(postData);
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
-})
+});
 
-router.put('/edit/:id', withAuth, async (req, res) => {
-  try {
-    const editPost = await Post.update(
-      {
-        title: req.body.title,
-        post: req.body.post,
-      },
-      {
-        where: {
-          id: req.params.id,
-        },
-      });
-
-    res.status(200).json(editPost)
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-})
 module.exports = router;
