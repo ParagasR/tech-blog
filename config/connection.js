@@ -4,7 +4,12 @@ require('dotenv').config();
 let sequelize
 
 if (process.env.DATABASE_URL) {
-    sequelize = new Sequelize(process.env.DATABASE_URL);
+    sequelize = {
+        HOST: "us-cdbr-iron-east-02.cleardb.net",
+        USER: "b8fa94b4b3f8de",
+        PASSWORD: "bb9025eb",
+        DB: "heroku_70f6eb6a8e9a396"
+    }
 } else { 
     sequelize = new Sequelize(
         process.env.DB_NAME,
